@@ -133,7 +133,7 @@ namespace NineYi.Mall.BL.Tests
         [Theory]
         [MemberData(nameof(DeliveryItemForTCat))]
         [MemberData(nameof(DeliveryItemForKTJ))]
-        //[MemberData(nameof(DeliveryItemForPostOffice))]
+        [MemberData(nameof(DeliveryItemForPostOffice))]
         public void Test_Calculate(DeliveryEntity deliveryItem, double expected)
         {
             //// Arrange

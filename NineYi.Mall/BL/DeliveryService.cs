@@ -35,7 +35,7 @@ namespace NineYi.Mall.BL
             }
             else if (deliveryItem.DeliveryType == DeliveryTypeEnum.PostOffice)
             {
-                throw new NotImplementedException();
+                this._deliveryFeeCalculator = new PostOfficeCalculator();
             }
             else
             {
