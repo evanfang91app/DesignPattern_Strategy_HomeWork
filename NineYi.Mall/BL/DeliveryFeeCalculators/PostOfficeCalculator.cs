@@ -11,16 +11,11 @@ namespace NineYi.Mall.BL.DeliveryFeeCalculators
     {
         public double Calculate(DeliveryEntity item)
         {
-            if (item.ProductLength == 30)
-            {
-                return 330;
-            }
-            else if (item.ProductLength == 60)
-            {
-                return 316.8;
-            }
+            var weightFee = item.ProductWeight * 10 + 80;
 
-            return 0;
+            var volumeFee = item.ProductLength * item.ProductHeight * item.ProductWidth * 0.00001 * 110;
+            
+            return Math.Max(weightFee, volumeFee);
         }
     }
 }
