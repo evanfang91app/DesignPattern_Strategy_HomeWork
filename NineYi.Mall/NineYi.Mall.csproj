@@ -47,6 +47,7 @@
     <Compile Include="BL\DeliveryFeeCalculators\TCatCalculator.cs" />
     <Compile Include="BL\DeliveryService.cs" />
     <Compile Include="BL\DeliveryFeeCalculators\IDeliveryFeeCalculator.cs" />
+    <Compile Include="BL\Factories\DeliveryFeeCalculatorFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

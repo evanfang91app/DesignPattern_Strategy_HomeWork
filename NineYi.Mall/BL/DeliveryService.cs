@@ -1,6 +1,7 @@
 ﻿using System;
 using NineYi.Mall.BE;
 using NineYi.Mall.BL.DeliveryFeeCalculators;
+using NineYi.Mall.BL.Factories;
 
 namespace NineYi.Mall.BL
 {
@@ -20,29 +21,14 @@ namespace NineYi.Mall.BL
         {
             if (deliveryItem == null)
             {
-                throw new ArgumentException("請檢查 deliveryItem 參數");
+                throw new ArgumentNullException("DeliveryItem不應為null");
             }
 
-            var fee = default(double);
+            //// 取得運費計算方式
+            this._deliveryFeeCalculator = DeliveryFeeCalculatorFactory.GetCalculator(deliveryItem.DeliveryType);
 
-            if (deliveryItem.DeliveryType == DeliveryTypeEnum.TCat)
-            {
-                this._deliveryFeeCalculator = new TCatCalculator();
-            }
-            else if (deliveryItem.DeliveryType == DeliveryTypeEnum.KTJ)
-            {
-                this._deliveryFeeCalculator = new KTJCalculator();
-            }
-            else if (deliveryItem.DeliveryType == DeliveryTypeEnum.PostOffice)
-            {
-                this._deliveryFeeCalculator = new PostOfficeCalculator();
-            }
-            else
-            {
-                throw new ArgumentException("請檢查 deliveryItem.DeliveryType 參數");
-            }
-
-            fee = this._deliveryFeeCalculator.Calculate(deliveryItem);
+            //// 計算運費
+            var fee = this._deliveryFeeCalculator.Calculate(deliveryItem);
 
             return fee;
         }
