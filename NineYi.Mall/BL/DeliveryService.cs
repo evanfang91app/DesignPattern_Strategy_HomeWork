@@ -1,5 +1,6 @@
 ﻿using System;
 using NineYi.Mall.BE;
+using NineYi.Mall.BL.DeliveryFeeCalculators;
 
 namespace NineYi.Mall.BL
 {
@@ -8,6 +9,8 @@ namespace NineYi.Mall.BL
     /// </summary>
     public class DeliveryService
     {
+        private IDeliveryFeeCalculator _deliveryFeeCalculator { get; set; }
+
         /// <summary>
         /// 計算運費
         /// </summary>
@@ -21,37 +24,14 @@ namespace NineYi.Mall.BL
             }
 
             var fee = default(double);
+
             if (deliveryItem.DeliveryType == DeliveryTypeEnum.TCat)
             {
-                var weight = deliveryItem.ProductWeight;
-                if (weight > 20)
-                {
-                    fee = 400d;
-                }
-                else
-                {
-                    fee = 100 + weight * 10;
-                }
-                return fee;
+                this._deliveryFeeCalculator = new TCatCalculator();
             }
             else if (deliveryItem.DeliveryType == DeliveryTypeEnum.KTJ)
             {
-                var length = deliveryItem.ProductLength;
-                var width = deliveryItem.ProductWidth;
-                var height = deliveryItem.ProductHeight;
-
-                var size = length * width * height;
-
-                if (length > 50 || width > 50 || height > 50)
-                {
-                    fee = size * 0.00001 * 110 + 50;
-                }
-                else
-                {
-                    fee = size * 0.00001 * 120;
-                }
-
-                return fee;
+                this._deliveryFeeCalculator = new KTJCalculator();
             }
             else if (deliveryItem.DeliveryType == DeliveryTypeEnum.PostOffice)
             {
@@ -61,6 +41,10 @@ namespace NineYi.Mall.BL
             {
                 throw new ArgumentException("請檢查 deliveryItem.DeliveryType 參數");
             }
+
+            fee = this._deliveryFeeCalculator.Calculate(deliveryItem);
+
+            return fee;
         }
     }
 }
