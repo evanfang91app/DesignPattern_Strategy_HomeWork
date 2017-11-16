@@ -42,7 +42,10 @@
   <ItemGroup>
     <Compile Include="BE\DeliveryEntity.cs" />
     <Compile Include="BE\DeliveryTypeEnum.cs" />
+    <Compile Include="BL\DeliveryFeeCalculators\KTJCalculator.cs" />
+    <Compile Include="BL\DeliveryFeeCalculators\TCatCalculator.cs" />
     <Compile Include="BL\DeliveryService.cs" />
+    <Compile Include="BL\DeliveryFeeCalculators\IDeliveryFeeCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
